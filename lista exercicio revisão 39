@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main(void) {
+  printf("Hello World\n");
+  return 0;
+}
+So1 + Vt=So2 + Vot +at²/2
+Como a posição inicial do homem é 0 (So1 = 0) e a velocidade inicial do trem é igual a zero (Vo = 0), temos que:
+Vt = D + at²/2
+8t = D + t²/2
+16t =2D + t²
+t² - 16t +2D = 0
+A=b² - 4ac
+A=256-4.1.2d
+Para possuir pelo menos 1 raiz real,delta deve ser maior ou igual a 0.
+A ≥ 0
+256 - 4.1.2d≥0
+32-d≥0
+d≤32
+a) como 30<32, ele conseguirá alcançar o trem.
+b)32 é a distância crítica
+c)t² - 16t +2D = 0
+Como D= 32
+t² - 16t +64 = 0
+(t-8 )²=0
+t = 8 s
+V=vo +at
+V= 1.8
+V=8m/s
