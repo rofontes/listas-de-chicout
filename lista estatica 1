@@ -1,117 +1,369 @@
+1
+a
 #include <stdio.h>
-
-typedef struct no{
-    int valor;
-    struct no *proximo;
-}No;
-
-void inserir(No **lista, int num){
-    No *novo = malloc(sizeof(No));
-
-    if(novo){
-        novo->valor = num;
-        novo->proximo = *lista;
-        *lista = novo;
-    }
-    else
-        printf("Erro ao alocar memoria!\n");
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+int ordem(Lista a[], int len)
+{
+int ordem = 0;
+for (int i = 1; i < len; i++)
+{
+if (a[i - 1].valor < a[i].valor)
+{
 }
-No* buscar(No **lista, int num){
-    No *aux, *no = NULL;
-
-    aux = *lista;
-    while(aux && aux->valor != num)
-        aux = aux->proximo;
-    if(aux)
-        no = aux;
-    return no;
+else
+{
+ordem++;
+break;
 }
-void copiar_lista(No **l, No **L3){
-    No *aux = *l;
-    while(aux){
-        inserir(L3, aux->valor);
-        aux = aux->proximo;
-    }
 }
-void inverter_lista(struct no **lista){
-  struct no* nova_lista = NULL;
-  struct no* tmp;
-  int i;
-
-  
-    while (*lista != NULL)
-    {
-        tmp = *lista;
-        *lista = (*lista)->proximo;
-      tmp->proximo = nova_lista;
-      nova_lista = tmp;
-    }
-  *lista = nova_lista;
-
+if (ordem == 1)
+{
+ordem = 0;
+for (int i = 1; i < len; i++)
+{
+if (a[i - 1].valor > a[i].valor)
+{
 }
-
-void ordem(No *no){
-    printf("\n\tLista: ");
-    while(no){
-        printf("%d ", no->valor);
-        no = no->proximo;
-    }
-    printf("\n\n");
+else
+{
+ordem++;
+break;
 }
-
-int main(){
-
-    int opcao, valor, anterior;
-    No *removido, *L1, *L2, *L3;
-    L1 = NULL;
-    L2 = NULL;
-    L3 = NULL;
-
-    do{
-        printf("\n0-Sair\n1-Inserir\n2-Ordem\n3-Buscar\n4-Copiar L1 p/ L2\n5-Copiar L1 e L2 p/ L3\n6-inverter\n");
-        scanf("%d", &opcao);
-
-        switch(opcao){
-        case 1: 
-            printf("Valor L1: ");
-            scanf("%d", &valor);
-            inserir(&L1, valor);
-            printf("Valor L2: ");
-            scanf("%d", &valor);
-            inserir(&L2, valor);
-            break;
-        case 2:
-            printf("\nLista L1:\n");
-            ordem(L1);
-            printf("\nLista L2:\n");
-            ordem(L2);
-            printf("\nLista L3:\n");
-            ordem(L3);
-            break;
-        case 3:
-            printf("Digite um valor a ser buscado: ");
-            scanf("%d", &valor);
-            removido = buscar(&L3, valor);
-            if(removido)
-                printf("Elemento encontrado: %d\n", removido->valor);
-            else
-                printf("Elemento nao encontrado!\n");
-            break;
-        case 5:
-            copiar_lista(&L1, &L3);
-            copiar_lista(&L2, &L3);
-            break;
-        default:
-            if(opcao != 0)
-                printf("Opcao invalida!\n");
-        case 4:
-            copiar_lista(&L1, &L2);
-            break;
-        case 6:
-            inverter_lista(&L1);
-            break;
-          }
-    }while(opcao != 0);
-
-    return 0;
+}
+}
+if (ordem == 0)
+{
+return 1;
+}
+else
+{
+return 0;
+}
+}
+int main()
+{
+Lista l1[10];
+int resp;
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+resp = ordem(l1, 10);
+printf("%d", resp);
+return 0;
+}
+b
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+void copia(Lista l1[], Lista *l2)
+{
+for (int i = 0; i < 10; i++)
+{
+l2[i].valor = l1[i].valor;
+}
+return;
+}
+int main()
+{
+Lista l1[10], l2[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+copia(l1, &l2);
+for (int i = 0; i < 10; i++)
+{
+printf("%d\n", l2[i].valor);
+}
+return 0;
+}
+c
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+void copiab(Lista l1[], Lista *l2)
+{
+for (int i = 0; i < 10; i++)
+{
+for (int j = -1; j < i; j++)
+{
+if (l1[i].valor == l2[j].valor)
+{
+l2[i].valor = -1;
+break;
+}
+else
+{
+l2[i].valor = l1[i].valor;
+}
+}
+}
+return;
+}
+int main()
+{
+Lista l1[10], l2[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+copiab(l1,&l2);
+for (int i = 0; i < 10; i++)
+{
+if (l2[i].valor != -1)
+{
+printf("%d\n", l2[i].valor);
+}
+}
+return 0;
+}
+d
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+void inverte(Lista l1[], Lista *l2)
+{
+int c = 9;
+for (int i = 0; i < 10; i++)
+{
+l2[i].valor = l1[c].valor;
+c--;
+}
+return;
+}
+int main()
+{
+Lista l1[10], l2[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+inverte(l1,&l2);
+for (int i = 0; i < 10; i++)
+{
+printf("%d\n", l2[i].valor);
+}
+return 0;
+}
+e
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+void inverte2(Lista *l1)
+{
+int aux, c = 9;
+for (int i = 0; i < 5; i++)
+{
+aux = l1[i].valor;
+l1[i].valor = l1[c].valor;
+l1[c].valor = aux;
+c--;
+}
+return;
+}
+int main()
+{
+Lista l1[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+inverte2(&l1);
+for (int i = 0; i < 10; i++)
+{
+printf("%d\n", l1[i].valor);
+}
+return 0;
+}
+f
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int valor
+};
+typedef struct lista Lista;
+void intercalar(Lista l1[], Lista l2[], Lista *l3)
+{
+int aux1 = 0, aux2 = 0;
+for (int i = 0; i < 20; i += 2)
+{
+l3[i].valor = l1[aux1].valor;
+l3[i + 1].valor = l2[aux2].valor;
+aux1++;
+aux2++;
+}
+return;
+}
+int main()
+{
+Lista l1[10], l2[10], l3[20];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].valor);
+}
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l2[i].valor);
+}
+intercalar(l1,l2,&l3);
+printf("\n\n");
+for (int i = 0; i < 20; i++)
+{
+printf("%d\n", l3[i].valor);
+}
+return 0;
+}
+g
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int elem;
+int count;
+};
+typedef struct lista Lista;
+void copiaeconta(Lista l1[],Lista *l2)
+{
+for (int i = 0; i < 10; i++)
+{
+int c = 0;
+l2[i].elem = l1[i].elem;
+for (int j = 0; j < 10; j++)
+{
+if (l1[i].elem == l1[j].elem)
+{
+c++;
+}
+}
+l2[i].count = c;
+}
+return;
+}
+int main()
+{
+Lista l1[10], l2[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].elem);
+}
+copiaeconta(l1,&l2);
+for (int i = 0; i < 10; i++)
+{
+printf("ELEMENTO: %d\nCOUNT: %d\n",l2[i].elem,l2[i].count);
+}
+return 0;
+}
+h
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int elem;
+};
+typedef struct lista Lista;
+void remove1(Lista *l1, int x)
+{
+for (int i = 0; i < 10; i++)
+{
+if (l1[i].elem == x)
+{
+l1[i].elem = l1[i + 1].elem;
+l1[9].elem = -1;
+}
+}
+return;
+}
+int main()
+{
+Lista l1[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].elem);
+}
+remove1(&l1, 3);
+for (int i = 0; i < 10; i++)
+{
+if (l1[i].elem != -1)
+{
+printf("%d\n", l1[i].elem);
+}
+}
+return 0;
+}
+i
+#include <stdio.h>
+#include <stdlib.h>
+struct lista
+{
+int elem;
+int count;
+};
+typedef struct lista Lista;
+void maismenos(Lista *l1)
+{
+Lista maisrep, menosrep;
+maisrep.elem = 0;
+maisrep.count = 0;
+menosrep.count = 10;
+menosrep.elem = 0;
+for (int i = 0; i < 10; i++)
+{
+int c = 0;
+l1[i].elem = l1[i].elem;
+for (int j = 0; j < 10; j++)
+{
+if (l1[i].elem == l1[j].elem)
+{
+c++;
+}
+}
+l1[i].count = c;
+if (l1[i].count > maisrep.count)
+{
+maisrep.count = l1[i].count;
+maisrep.elem = l1[i].elem;
+}
+if (l1[i].count < menosrep.count)
+{
+menosrep.count = l1[i].count;
+menosrep.elem = l1[i].elem;
+}
+}
+printf("MAIS APARECE\nELEMENTO: %d %d VEZES\nMENOS
+APARECE\nELEMENTO: %d %d VEZES ", maisrep.elem, maisrep.count,
+menosrep.elem, menosrep.count);
+return;
+}
+int main()
+{
+Lista l1[10];
+for (int i = 0; i < 10; i++)
+{
+scanf("%d", &l1[i].elem);
+}
+maismenos(&l1);
+return 0;
 }
